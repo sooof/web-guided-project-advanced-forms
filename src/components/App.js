@@ -102,6 +102,7 @@ export default function App() {
       hobbies: ['hiking', 'reading', 'coding'].filter(hobby => !!formValues[hobby])
     }
     // 🔥 STEP 8- POST NEW FRIEND USING HELPER
+    postNewFriend(newFriend);
   }
 /**
  * 
