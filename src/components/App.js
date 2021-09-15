@@ -76,8 +76,16 @@ export default function App() {
   //////////////// EVENT HANDLERS ////////////////
   //////////////// EVENT HANDLERS ////////////////
   //////////////// EVENT HANDLERS ////////////////
+  const validate = (name, value) => {
+    yup.reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: '' }))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+  }
+
   const inputChange = (name, value) => {
     // 🔥 STEP 10- RUN VALIDATION WITH YUP
+    validate(name, value);
     setFormValues({
       ...formValues,
       [name]: value // NOT AN ARRAY
@@ -90,11 +98,16 @@ export default function App() {
       email: formValues.email.trim(),
       role: formValues.role.trim(),
       civil: formValues.civil.trim(),
-      // 🔥 STEP 7- WHAT ABOUT HOBBIES?
+      // 🔥 STEP 7- WHAT ABOUT HOBBIES? // values[name-first] // formValuesblah]
+      hobbies: ['hiking', 'reading', 'coding'].filter(hobby => !!formValues[hobby])
     }
     // 🔥 STEP 8- POST NEW FRIEND USING HELPER
   }
-
+/**
+ * 
+ * console.log(!!null) ???? !true => false
+ * 
+ */
   //////////////// SIDE EFFECTS ////////////////
   //////////////// SIDE EFFECTS ////////////////
   //////////////// SIDE EFFECTS ////////////////
@@ -104,7 +117,8 @@ export default function App() {
 
   useEffect(() => {
     // 🔥 STEP 9- ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
-  }, [])
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
 
   return (
     <div className='container'>
