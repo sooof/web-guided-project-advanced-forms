@@ -17,6 +17,23 @@ const friends = [
   },
 ]
 
+// const friends = [
+//     {
+//       id: uuid(),
+//       username: 'Michael',
+//       email: 'michael@michael.com',
+//       password: 'student',
+//       agree: true,
+//     },
+//     {
+//       id: uuid(),
+//       username: 'Mic',
+//       email: 'mic@michael.com',
+//       password: 'student',
+//       agree: true,
+//     }
+//   ]
+
 function getAllFriends(req, res, ctx) {
   return res(
     ctx.status(200),
